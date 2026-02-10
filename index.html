@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <div class="left-panel">
+            <div class="client-controls">
+                <button id="save-client">Save Client</button>
+                <select id="load-client">
+                    <option value="">Load Client</option>
+                </select>
+                <button id="new-client">New Client</button>
+            </div>
+            <h1>Client Dashboard</h1>
+            <section class="client-info">
+                <h2>Client Name</h2>
+                <div contenteditable="true" class="editable client-name-display">DR. RAMKISHAN NAG</div>
+            </section>
+
+            <section class="client-logo">
+    <h2>Client Logo</h2>
+
+    <div class="logo-container">
+        <div id="client-logo">
+            <img src="Screenshot_30-1-2026_05019_.jpeg" alt="Client Logo">
+        </div>
+    </div>
+</section>
+ 
+            <section class="brand-colors">
+                <h2>Brand Colors</h2>
+                <div class="color-item">
+                    <label>Primary:</label>
+                    <input type="color" value="#007bff" id="primary-color">
+                    <span id="primary-code">#007bff</span>
+                </div>
+                <div class="color-item">
+                    <label>Secondary:</label>
+                    <input type="color" value="#ff1493" id="secondary-color">
+                    <span id="secondary-code">#ff1493</span>
+                </div>
+                <div class="color-item">
+                    <label>Highlight/Accent:</label>
+                    <input type="color" value="#ffc107" id="accent-color">
+                    <span id="accent-code">#ffc107</span>
+                </div>
+            </section>
+            <section class="client-notes">
+                <h2>Client Notes</h2>
+                <textarea placeholder="Enter client notes here..."></textarea>
+            </section>
+            <section class="project-checklist">
+                <h2>Project Checklist</h2>
+                <ul>
+                    <li><input type="checkbox" checked> Logo updated in header</li>
+                    <li><input type="checkbox" checked> Logo updated in footer</li>
+                    <li><input type="checkbox" checked> Brand colors applied</li>
+                    <li><input type="checkbox" checked> Home page created</li>
+                    <li><input type="checkbox" checked> About Us page created</li>
+                    <li><input type="checkbox" checked> Contact Us page created</li>
+                </ul>
+            </section>
+        </div>
+        <div class="right-panel">
+            <h2>Home Page Preview</h2>
+            <div class="preview-controls">
+                <span class="preview-info">Loading home page preview...</span>
+            </div>
+            <div class="preview-container">
+                <iframe src="https://www.drramkishannag.com" id="website-preview" width="100%" height="600px"></iframe>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
