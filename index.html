@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Dashboard</title>
+    <title>Client Dashboard Template</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!--
+        CLIENT DASHBOARD TEMPLATE
+        -------------------------
+        * Duplicate the entire "intelligence-main" folder and
+          rename for each new client.
+        * Do not hardcode any client-specific data; use the
+          editable fields and controls provided.
+        * Remove or replace this comment when sharing with
+          clients to avoid exposing template notes.
+    -->
     <div class="dashboard">
         <div class="left-panel">
             <div class="client-controls">
@@ -17,22 +27,16 @@
                 </select>
                 <button id="new-client">New Client</button>
             </div>
-            <h1>Client Dashboard</h1>
-            <section class="client-info">
-                <h2>Client Name</h2>
-                <div contenteditable="true" class="editable client-name-display">DR. RAMKISHAN NAG</div>
-            </section>
+            <h1>CLIENT: <span contenteditable="true" class="editable client-name-display" data-placeholder="CLIENT NAME">Crimson.com</span></h1>
+            <div class="logo-info">
+                <div class="logo-section">
+                    <span class="label">LOGO UPLOAD</span>
+                </div>
+                <div id="client-logo" class="logo-placeholder">Logo Placeholder</div>
+                <input type="file" id="logo-upload" accept="image/*" style="margin-top: 10px;">
+            </div>
+            <div class="swatches"></div>
 
-            <section class="client-logo">
-    <h2>Client Logo</h2>
-
-    <div class="logo-container">
-        <div id="client-logo">
-            <img src="Screenshot_30-1-2026_05019_.jpeg" alt="Client Logo">
-        </div>
-    </div>
-</section>
- 
             <section class="brand-colors">
                 <h2>Brand Colors</h2>
                 <div class="color-item">
@@ -42,8 +46,8 @@
                 </div>
                 <div class="color-item">
                     <label>Secondary:</label>
-                    <input type="color" value="#ff1493" id="secondary-color">
-                    <span id="secondary-code">#ff1493</span>
+                    <input type="color" value="#6c757d" id="secondary-color">
+                    <span id="secondary-code">#6c757d</span>
                 </div>
                 <div class="color-item">
                     <label>Highlight/Accent:</label>
@@ -52,28 +56,57 @@
                 </div>
             </section>
             <section class="client-notes">
-                <h2>Client Notes</h2>
-                <textarea placeholder="Enter client notes here..."></textarea>
+                <h2>CLIENT NOTES</h2>
+                <textarea placeholder="Client prefers minimalist design with emphasis when mobile experience. Launch date target: Oct 26, 2024"></textarea>
+            </section>
+            <section class="document-upload">
+                <h2>DOCUMENT UPLOAD</h2>
+                <div class="search-box">
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="upload-progress">
+                    <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
+                    <span class="progress-text">60% COMPLETE</span>
+                </div>
             </section>
             <section class="project-checklist">
-                <h2>Project Checklist</h2>
-                <ul>
-                    <li><input type="checkbox" checked> Logo updated in header</li>
-                    <li><input type="checkbox" checked> Logo updated in footer</li>
-                    <li><input type="checkbox" checked> Brand colors applied</li>
-                    <li><input type="checkbox" checked> Home page created</li>
-                    <li><input type="checkbox" checked> About Us page created</li>
-                    <li><input type="checkbox" checked> Contact Us page created</li>
-                </ul>
+                <h2>PRODUCTION CHECKLIST (150 STEPS)</h2>
+                <div class="checklist-section">
+                    <h3>INITIAL SETUP</h3>
+                    <ul>
+                        <li><label><input type="checkbox" checked>&#160;<span contenteditable="true">Install WordPress</span></label></li>
+                        <li><label><input type="checkbox" checked>&#160;<span contenteditable="true">Choose Theme</span></label></li>
+                        <li><label><input type="checkbox">&#160;<span contenteditable="true">Choose Theme</span></label></li>
+                        <li><label><input type="checkbox" checked>&#160;<span contenteditable="true">Customize Header</span></label></li>
+                        <li><label><input type="checkbox" checked>&#160;<span contenteditable="true">Develop Custom Post Types</span></label></li>
+                        <li><label><input type="checkbox">&#160;<span contenteditable="true">Implement SEO Plugins</span></label></li>
+                        <li><label><input type="checkbox">&#160;<span contenteditable="true">Implement SEO Plugins</span></label></li>
+                    </ul>
+                </div>
+                <div class="checklist-section">
+                    <h3>CONTENT</h3>
+                    <ul>
+                        <li><label><input type="checkbox">&#160;<span contenteditable="true">Content Migration</span></label></li>
+                        <li><label><input type="checkbox">&#160;<span contenteditable="true">Content Migration</span></label></li>
+                    </ul>
+                </div>
+                <div class="checklist-section">
+                    <h3>QA & LAUNCH</h3>
+                    <ul>
+                        <li><label><input type="checkbox" checked>&#160;<span contenteditable="true">QA & Launch</span></label></li>
+                    </ul>
+                </div>
             </section>
         </div>
         <div class="right-panel">
             <h2>Home Page Preview</h2>
             <div class="preview-controls">
-                <span class="preview-info">Loading home page preview...</span>
+                <input type="text" id="preview-url" placeholder="https://example.com">
+                <button id="load-preview">Load</button>
+                <span class="preview-info">Enter a URL and click load to preview a site.</span>
             </div>
             <div class="preview-container">
-                <iframe src="https://www.drramkishannag.com" id="website-preview" width="100%" height="600px"></iframe>
+                <iframe src="about:blank" id="website-preview" width="100%" height="600px"></iframe>
             </div>
         </div>
     </div>
