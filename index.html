@@ -55,32 +55,115 @@
                     <span id="accent-code">#ffc107</span>
                 </div>
             </section>
-            <section class="client-notes">
-                <h2>CLIENT NOTES</h2>
-                <textarea placeholder="Client prefers minimalist design with emphasis when mobile experience. Launch date target: Oct 26, 2024"></textarea>
-            </section>
-            <section class="document-upload">
-                <h2>DOCUMENT UPLOAD</h2>
-                <div class="search-box">
-                    <input type="text" placeholder="Search...">
-                </div>
-                <div class="upload-progress">
-                    <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
-                    <span class="progress-text">60% COMPLETE</span>
-                </div>
-            </section>
+
+          <section class="client-notes">
+<h2>CLIENT NOTES</h2>
+
+<div class="notes-controls">
+<button id="edit-notes">Edit</button>
+<button id="save-notes">Save</button>
+<button id="delete-notes">Delete</button>
+</div>
+
+<textarea id="notes-area" disabled></textarea>
+
+</section>
+
+<section class="document-upload">
+    <h2>Document Upload</h2>
+    <input type="file" id="doc-upload" multiple>
+    <div id="uploaded-files"></div>
+</section>
+
             <section class="project-checklist">
                 <h2>PRODUCTION CHECKLIST (150 STEPS)</h2>
+                <button id="add-checklist-item" style="width:100%;margin-bottom:12px;">Add New Checklist Item</button>
                 <div class="checklist-section">
                     <h3>INITIAL SETUP</h3>
-                    <ul>
-                        <li><label><input type="checkbox" checked>&#160;<span contenteditable="true">Install WordPress</span></label></li>
-                        <li><label><input type="checkbox" checked>&#160;<span contenteditable="true">Choose Theme</span></label></li>
-                        <li><label><input type="checkbox">&#160;<span contenteditable="true">Choose Theme</span></label></li>
-                        <li><label><input type="checkbox" checked>&#160;<span contenteditable="true">Customize Header</span></label></li>
-                        <li><label><input type="checkbox" checked>&#160;<span contenteditable="true">Develop Custom Post Types</span></label></li>
-                        <li><label><input type="checkbox">&#160;<span contenteditable="true">Implement SEO Plugins</span></label></li>
-                        <li><label><input type="checkbox">&#160;<span contenteditable="true">Implement SEO Plugins</span></label></li>
+                    <ul id="checklist-initial">
+                        <li>
+                            <label>
+                                <input type="checkbox" checked>
+                                <span class="checklist-text" contenteditable="false">Install WordPress</span>
+                            </label>
+                            <button class="checklist-menu">⋮</button>
+                            <div class="checklist-dropdown" style="display:none;">
+                                <button class="edit-item">Edit</button>
+                                <button class="delete-item">Delete</button>
+                                <button class="insert-item">Insert Below</button>
+                            </div>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox" checked>
+                                <span class="checklist-text" contenteditable="false">Choose Theme</span>
+                            </label>
+                            <button class="checklist-menu">⋮</button>
+                            <div class="checklist-dropdown" style="display:none;">
+                                <button class="edit-item">Edit</button>
+                                <button class="delete-item">Delete</button>
+                                <button class="insert-item">Insert Below</button>
+                            </div>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox">
+                                <span class="checklist-text" contenteditable="false">Choose Theme</span>
+                            </label>
+                            <button class="checklist-menu">⋮</button>
+                            <div class="checklist-dropdown" style="display:none;">
+                                <button class="edit-item">Edit</button>
+                                <button class="delete-item">Delete</button>
+                                <button class="insert-item">Insert Below</button>
+                            </div>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox" checked>
+                                <span class="checklist-text" contenteditable="false">Customize Header</span>
+                            </label>
+                            <button class="checklist-menu">⋮</button>
+                            <div class="checklist-dropdown" style="display:none;">
+                                <button class="edit-item">Edit</button>
+                                <button class="delete-item">Delete</button>
+                                <button class="insert-item">Insert Below</button>
+                            </div>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox" checked>
+                                <span class="checklist-text" contenteditable="false">Develop Custom Post Types</span>
+                            </label>
+                            <button class="checklist-menu">⋮</button>
+                            <div class="checklist-dropdown" style="display:none;">
+                                <button class="edit-item">Edit</button>
+                                <button class="delete-item">Delete</button>
+                                <button class="insert-item">Insert Below</button>
+                            </div>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox">
+                                <span class="checklist-text" contenteditable="false">Implement SEO Plugins</span>
+                            </label>
+                            <button class="checklist-menu">⋮</button>
+                            <div class="checklist-dropdown" style="display:none;">
+                                <button class="edit-item">Edit</button>
+                                <button class="delete-item">Delete</button>
+                                <button class="insert-item">Insert Below</button>
+                            </div>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox">
+                                <span class="checklist-text" contenteditable="false">Implement SEO Plugins</span>
+                            </label>
+                            <button class="checklist-menu">⋮</button>
+                            <div class="checklist-dropdown" style="display:none;">
+                                <button class="edit-item">Edit</button>
+                                <button class="delete-item">Delete</button>
+                                <button class="insert-item">Insert Below</button>
+                            </div>
                     </ul>
                 </div>
                 <div class="checklist-section">
