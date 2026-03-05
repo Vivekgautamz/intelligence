@@ -34,6 +34,48 @@ function hexToRgba(hex, alpha) {
     });
 });
 
+
+// Notes section logic
+const notesArea = document.getElementById('notes-area');
+const editNotesBtn = document.getElementById('edit-notes');
+const saveNotesBtn = document.getElementById('save-notes');
+const deleteNotesBtn = document.getElementById('delete-notes');
+
+editNotesBtn.addEventListener('click', () => {
+    notesArea.disabled = false;
+    notesArea.focus();
+});
+
+saveNotesBtn.addEventListener('click', () => {
+    notesArea.disabled = true;
+    localStorage.setItem('clientNotes', notesArea.value);
+});
+
+deleteNotesBtn.addEventListener('click', () => {
+    notesArea.value = '';
+    notesArea.disabled = true;
+    localStorage.removeItem('clientNotes');
+});
+
+// Load saved notes on page load
+window.addEventListener('DOMContentLoaded', () => {
+    const savedNotes = localStorage.getItem('clientNotes');
+    if (savedNotes) notesArea.value = savedNotes;
+    notesArea.disabled = true;
+});
+
+const docUpload = document.getElementById('doc-upload');
+const uploadedFiles = document.getElementById('uploaded-files');
+
+docUpload.addEventListener('change', (e) => {
+    uploadedFiles.innerHTML = '';
+    Array.from(e.target.files).forEach(file => {
+        const div = document.createElement('div');
+        div.textContent = file.name;
+        uploadedFiles.appendChild(div);
+    });
+});
+
 // update header when client name edited
 const nameDisplay = document.querySelector('.client-name-display');
 nameDisplay.addEventListener('blur', refreshHeader);
@@ -113,13 +155,14 @@ document.getElementById('logo-upload').addEventListener('change', function(event
 });
 
 // Document upload simulation
-const docInput = document.getElementById('doc-upload');
-if (docInput) {
-    docInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) simulateUpload(file);
+docUpload.addEventListener('change', (e) => {
+    uploadedFiles.innerHTML = '';
+    Array.from(e.target.files).forEach(file => {
+        const div = document.createElement('div');
+        div.textContent = file.name;
+        uploadedFiles.appendChild(div);
     });
-}
+});
 
 // Load website preview
 const previewInfo = document.querySelector('.preview-info');
@@ -201,25 +244,18 @@ document.getElementById('load-client').addEventListener('change', function() {
 
 // New client
 document.getElementById('new-client').addEventListener('click', function() {
-    document.querySelector('.editable').textContent = '';
-    const logoDiv = document.getElementById('client-logo');
-    logoDiv.style.backgroundImage = '';
-    logoDiv.textContent = 'Logo Placeholder';
-    logoDiv.dataset.logoData = '';
-    document.getElementById('primary-color').value = '#007bff';
-    document.getElementById('primary-code').textContent = '#007bff';
-    document.getElementById('secondary-color').value = '#6c757d';
-    document.getElementById('secondary-code').textContent = '#6c757d';
-    document.getElementById('accent-color').value = '#ffc107';
-    document.getElementById('accent-code').textContent = '#ffc107';
-    document.querySelector('textarea').value = '';
-    document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-    document.getElementById('preview-url').value = '';
-    document.getElementById('website-preview').src = 'about:blank';
-    document.getElementById('load-client').value = '';
-    refreshHeader();
-    // Apply default colors
-    applyBrandColors('#007bff', '#6c757d', '#ffc107');
+    window.open(window.location.pathname, '_blank');
+});
+
+// Save Client: Save all relevant data to localStorage (or backend if available)
+document.getElementById('save-client').addEventListener('click', function() {
+    const clientData = {
+        name: document.querySelector('.client-name-display').textContent,
+        notes: notesArea.value,
+        // Add more fields as needed
+    };
+    localStorage.setItem('clientData', JSON.stringify(clientData));
+    alert('Client data saved!');
 });
 
 // Initialize
@@ -235,4 +271,91 @@ applyBrandColors(initialPrimary, initialSecondary, initialAccent);
 window.addEventListener('DOMContentLoaded', function() {
     // keep iframe blank until user enters an address
     document.getElementById('website-preview').src = 'about:blank';
+});
+
+function createChecklistItem(text = '', checked = false) {
+    const li = document.createElement('li');
+    li.style.position = 'relative';
+    li.innerHTML = `
+        <label>
+            <input type="checkbox" ${checked ? 'checked' : ''}>
+            <span class="checklist-text" contenteditable="false">${text}</span>
+        </label>
+        <button class="checklist-menu">⋮</button>
+        <div class="checklist-dropdown" style="display:none;">
+            <button class="edit-item">Edit</button>
+            <button class="delete-item">Delete</button>
+            <button class="insert-item">Insert Below</button>
+        </div>
+    `;
+    return li;
+}
+
+function setupChecklistEvents(ul) {
+    ul.addEventListener('click', function(e) {
+        if (e.target.classList.contains('checklist-menu')) {
+            const dropdown = e.target.nextElementSibling;
+            document.querySelectorAll('.checklist-dropdown').forEach(d => d.style.display = 'none');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        } else if (e.target.classList.contains('edit-item')) {
+            const li = e.target.closest('li');
+            const span = li.querySelector('.checklist-text');
+            span.contentEditable = true;
+            span.focus();
+            e.target.closest('.checklist-dropdown').style.display = 'none';
+        } else if (e.target.classList.contains('delete-item')) {
+            const li = e.target.closest('li');
+            li.remove();
+        } else if (e.target.classList.contains('insert-item')) {
+            const li = e.target.closest('li');
+            const newLi = createChecklistItem('New Task', false);
+            li.after(newLi);
+            setupChecklistEventsForItem(newLi);
+            e.target.closest('.checklist-dropdown').style.display = 'none';
+        }
+    });
+    ul.addEventListener('blur', function(e) {
+        if (e.target.classList.contains('checklist-text')) {
+            e.target.contentEditable = false;
+        }
+    }, true);
+}
+
+function setupChecklistEventsForItem(li) {
+    li.querySelector('.checklist-menu').addEventListener('click', function(e) {
+        const dropdown = li.querySelector('.checklist-dropdown');
+        document.querySelectorAll('.checklist-dropdown').forEach(d => d.style.display = 'none');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        e.stopPropagation();
+    });
+    li.querySelector('.edit-item').addEventListener('click', function() {
+        const span = li.querySelector('.checklist-text');
+        span.contentEditable = true;
+        span.focus();
+        li.querySelector('.checklist-dropdown').style.display = 'none';
+    });
+    li.querySelector('.delete-item').addEventListener('click', function() {
+        li.remove();
+    });
+    li.querySelector('.insert-item').addEventListener('click', function() {
+        const newLi = createChecklistItem('New Task', false);
+        li.after(newLi);
+        setupChecklistEventsForItem(newLi);
+        li.querySelector('.checklist-dropdown').style.display = 'none';
+    });
+    li.querySelector('.checklist-text').addEventListener('blur', function(e) {
+        e.target.contentEditable = false;
+    });
+}
+
+document.querySelectorAll('ul[id^="checklist"]').forEach(ul => {
+    setupChecklistEvents(ul);
+    ul.querySelectorAll('li').forEach(setupChecklistEventsForItem);
+});
+
+document.getElementById('add-checklist-item').addEventListener('click', function() {
+    const ul = document.getElementById('checklist-initial');
+    const li = createChecklistItem('New Task', false);
+    ul.appendChild(li);
+    setupChecklistEventsForItem(li);
 });
